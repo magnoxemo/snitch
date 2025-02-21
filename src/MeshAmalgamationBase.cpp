@@ -7,9 +7,9 @@ MeshAmalgamation::MeshAmalgamation(libMesh::Mesh &mesh,
                                    libMesh::EquationSystems &equation_system,
                                    const std::string system_name)
     : _mesh(mesh), _equation_system(equation_system),
-      _system_name(system_name) {
-    _system= _equation_system.add_system<LinearImplicitSystem>(_system_name);
-    _dof_map = _system.get_dof_map();
+      _system_name(system_name),
+    _system (_equation_system.add_system<LinearImplicitSystem>(_system_name)),
+    _dof_map (_system.get_dof_map()){
 
 }
 

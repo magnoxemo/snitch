@@ -29,7 +29,6 @@ protected:
   DofMap &_dof_map;
 
   double getElementDataFromMesh(const libMesh::Elem *elem);
-  void addVariableToSystem(const std::string variable_name);
 
 public:
   MeshAmalgamation(libMesh::Mesh &mesh,
@@ -43,4 +42,5 @@ public:
   void printSystemInformation();
   void writeOutputData(std::string output_file_name);
   void setNumberOfColors(unsigned int number_of_colors);
+  void addVariableToSystem(const std::string variable_name);
 };
