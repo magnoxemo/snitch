@@ -1,3 +1,6 @@
+#include <ctime>
+#include <random>
+
 #include "RandomField.h"
 
 void RandomField::populateRandomIntegers(int limit, int seed) {

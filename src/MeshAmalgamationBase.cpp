@@ -1,3 +1,5 @@
+#include "libmesh/exodusII_io.h"
+
 #include "MeshAmalgamationBase.h"
 
 
@@ -46,11 +48,10 @@ void MeshAmalgamation::findCluster() {
 
 void MeshAmalgamation::addVariableToSystem(const std::string variable_name) {
 
-    if (_variable_name.empty()){
-        _variable_name = variable_name;
-    }else{
+    if (!_variable_name.empty()){
         throw std::invalid_argument("variable name has been set already!");
     }
+    _variable_name = variable_name;
   _system.add_variable(_variable_name, CONSTANT, MONOMIAL);
   _variable_index = _system.variable_number(variable_name);
   _equation_system.init();
