@@ -24,7 +24,7 @@ protected:
   unsigned int _number_of_colors= 12;
 
   libMesh::Mesh &_mesh;
-  libMesh::EquationSystems &_equation_variable_index_system;
+  libMesh::EquationSystems &_equation_system;
   LinearImplicitSystem &_system;
   DofMap &_dof_map;
 
