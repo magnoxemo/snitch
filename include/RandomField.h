@@ -1,4 +1,6 @@
 #include "MeshAmalgamationBase.h"
+#include <ctime>
+#include <random>
 
 class RandomField : public MeshAmalgamation {
 

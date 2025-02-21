@@ -1,7 +1,6 @@
 #include <cstdlib>
-#include <ctime>
-#include <random>
 #include <vector>
+#include <stdexcept>
 
 #include "libmesh/dof_map.h"
 #include "libmesh/elem.h"
@@ -24,27 +23,26 @@ protected:
   unsigned int _extra_element_integer_index;
   unsigned int _variable_index;
   std::string _system_name;
+  unsigned int _number_of_colors= 12;
 
   libMesh::Mesh &_mesh;
-  libMesh::EquationSystems &_equation_system;
-  LinearImplicitSystem &_system =
-      _equation_system.add_system<LinearImplicitSystem>(_system_name);
-  DofMap &_dof_map = _system.get_dof_map();
+  libMesh::EquationSystems &_equation_variable_index_system;
+  LinearImplicitSystem &_system;
+  DofMap &_dof_map;
+
+  double getElementDataFromMesh(const libMesh::Elem *elem);
+  void addVariableToSystem(const std::string variable_name);
 
 public:
   MeshAmalgamation(libMesh::Mesh &mesh,
                    libMesh::EquationSystems &equation_system,
                    std::string system_name);
 
-  double getElementDataFromMesh(const libMesh::Elem *elem);
-  void addVariablesToSystem(const std::string variable_name);
   virtual bool belongToCluster(libMesh::Elem *elem,
                                libMesh::Elem *neighbor_elem) = 0;
-  void findCluster();
+  virtual void findCluster();
   void captureClusterID();
   void printSystemInformation();
   void writeOutputData(std::string output_file_name);
+  void setNumberOfColors(unsigned int number_of_colors);
 };
-
-void createMesh(libMesh::Mesh &mesh, int nx, int ny);
-void createMesh(libMesh::Mesh &mesh, int nx, int ny, int nz);
