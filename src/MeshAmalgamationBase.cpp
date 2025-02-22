@@ -1,7 +1,14 @@
 #include "libmesh/exodusII_io.h"
+#include "libmesh/dof_map.h"
+#include "libmesh/elem.h"
+#include "libmesh/equation_systems.h"
+#include "libmesh/libmesh.h"
+#include "libmesh/linear_implicit_system.h"
+#include "libmesh/mesh.h"
+#include "libmesh/numeric_vector.h"
+#include "libmesh/system.h"
 
 #include "MeshAmalgamationBase.h"
-
 
 MeshAmalgamation::MeshAmalgamation(libMesh::Mesh &mesh,
                                    libMesh::EquationSystems &equation_system,

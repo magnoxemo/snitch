@@ -1,19 +1,20 @@
+#pragma once
+
 #include <cstdlib>
 #include <vector>
 #include <stdexcept>
 
-#include "libmesh/dof_map.h"
-#include "libmesh/elem.h"
-#include "libmesh/equation_systems.h"
-#include "libmesh/libmesh.h"
-#include "libmesh/linear_implicit_system.h"
-#include "libmesh/mesh.h"
-#include "libmesh/numeric_vector.h"
-#include "libmesh/system.h"
+namespace libMesh {
+    class DofMap;
+    class Elem;
+    class EquationSystems;
+    class LinearImplicitSystem;
+    class Mesh;
+    class NumericVector;
+    class System;
+}
 
-using namespace libMesh;
-
-class MeshAmalgamation {
+class MeshAmalgamation{
 
 private:
 protected:
@@ -25,8 +26,8 @@ protected:
 
   libMesh::Mesh &_mesh;
   libMesh::EquationSystems &_equation_system;
-  LinearImplicitSystem &_system;
-  DofMap &_dof_map;
+  libMesh::LinearImplicitSystem &_system;
+  libMesh::DofMap &_dof_map;
 
   double getElementDataFromMesh(const libMesh::Elem *elem);
 
