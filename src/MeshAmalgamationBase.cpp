@@ -59,19 +59,19 @@ void MeshAmalgamation::addVariableToSystem(const std::string variable_name) {
         throw std::invalid_argument("variable name has been set already!");
     }
     _variable_name = variable_name;
-  _system.add_variable(_variable_name, CONSTANT, MONOMIAL);
+  _system.add_variable(_variable_name, libMesh::CONSTANT, libMesh::MONOMIAL);
   _variable_index = _system.variable_number(variable_name);
   _equation_system.init();
 }
 
 void MeshAmalgamation::captureClusterID() {
 
-  LinearImplicitSystem &local_system =
-      _equation_system.add_system<LinearImplicitSystem>("cluster_id");
-  local_system.add_variable("cluster_id", CONSTANT, MONOMIAL);
+    libMesh::LinearImplicitSystem &local_system =
+      _equation_system.add_system<libMesh::LinearImplicitSystem>("cluster_id");
+  local_system.add_variable("cluster_id", libMesh::CONSTANT, libMesh::MONOMIAL);
   _equation_system.reinit();
 
-  DofMap &local_dof_map = local_system.get_dof_map();
+    libMesh::DofMap &local_dof_map = local_system.get_dof_map();
 
   for (const auto &elem : _mesh.element_ptr_range()) {
     std::vector<dof_id_type> local_dof_indices;
@@ -84,7 +84,7 @@ void MeshAmalgamation::captureClusterID() {
 }
 
 void MeshAmalgamation::writeOutputData(std::string output_file_name) {
-  ExodusII_IO(_mesh).write_discontinuous_equation_systems(output_file_name,
+    libMesh::ExodusII_IO(_mesh).write_discontinuous_equation_systems(output_file_name,
                                                           _equation_system);
 }
 
@@ -95,7 +95,7 @@ void MeshAmalgamation::printSystemInformation() {
 
 double MeshAmalgamation::getElementDataFromMesh(const libMesh::Elem *elem) {
 
-  std::vector<dof_id_type> dof_indices;
+  std::vector<libMesh::dof_id_type> dof_indices;
   std::vector<double> solution_value(1);
 
   _dof_map.dof_indices(elem, dof_indices, _variable_index);
