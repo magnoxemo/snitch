@@ -1,3 +1,6 @@
+#ifndef EqualNeighborHeuristic
+#define EqualNeighborHeuristic
+
 #include "MeshAmalgamationBase.h"
 
 class EqualNeighborHeuristic : public MeshAmalgamation {

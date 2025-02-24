@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MeshAmalgamation
+#define MeshAmalgamation
 
 #include <cstdlib>
 #include <vector>
