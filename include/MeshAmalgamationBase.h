@@ -1,5 +1,5 @@
-#ifndef MeshAmalgamation
-#define MeshAmalgamation
+#ifndef MESHAMALGAMATION_H
+#define MESHAMALGAMATION_H
 
 #include <cstdlib>
 #include <vector>
@@ -46,3 +46,5 @@ public:
   void setNumberOfColors(unsigned int number_of_colors);
   void addVariableToSystem(const std::string variable_name);
 };
+
+#endif

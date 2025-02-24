@@ -72,9 +72,8 @@ void MeshAmalgamation::captureClusterID() {
   _equation_system.reinit();
 
     libMesh::DofMap &local_dof_map = local_system.get_dof_map();
-
+    std::vector<libMesh::dof_id_type> local_dof_indices;
   for (const auto &elem : _mesh.element_ptr_range()) {
-    std::vector<dof_id_type> local_dof_indices;
     local_dof_map.dof_indices(elem, local_dof_indices);
     int cluster_id = elem->get_extra_integer(_extra_element_integer_index) % _number_of_colors;
     local_system.solution->set(local_dof_indices[0], cluster_id);

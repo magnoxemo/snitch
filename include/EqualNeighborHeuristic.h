@@ -1,5 +1,5 @@
-#ifndef EqualNeighborHeuristic
-#define EqualNeighborHeuristic
+#ifndef EQUALNEIGHBORHEURISTICS_H
+#define EQUALNEIGHBORHEURISTICS_H
 
 #include "MeshAmalgamationBase.h"
 
@@ -16,3 +16,5 @@ public:
                        libMesh::Elem *neighbor_elem) override;
   void setTolerance(double tol){_tol =tol;}
 };
+
+#endif
