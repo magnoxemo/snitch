@@ -5,13 +5,13 @@
 
 #include "libmesh/mesh_generation.h"
 #include "libmesh/libmesh.h"
-#include "MeshAmalgamationBase.h"
+#include "EqualNeighborHeuristic.h"
 
-class testMeshAmalgamation:public MeshAmalgamation{
+class testEqualNeighborHeuristic:public EqualNeighborHeuristic{
 public:
-    testMeshAmalgamation(libMesh::Mesh &mesh,
+    testEqualNeighborHeuristic(libMesh::Mesh &mesh,
                             libMesh::EquationSystems &equation_system,
-                            std::string system_name): MeshAmalgamation(mesh, equation_system, system_name) {}
+                            std::string system_name): EqualNeighborHeuristic(mesh, equation_system, system_name) {}
 
     void populateRandomData(){
         std::vector<libMesh::dof_id_type> dof_indices;
@@ -22,8 +22,6 @@ public:
         }
         _system.solution->close();
     }
-    bool belongToCluster(libMesh::Elem *elem,libMesh::Elem *neighbor_elem){return true;}
-    //this won't be used at all for this demonstration
 };
 
 int main(int argc, char **argv){
@@ -35,9 +33,11 @@ int main(int argc, char **argv){
     libMesh::MeshTools::Generation::build_square(mesh, nx, ny, -10.0, 10.0, -10.0,10.0);
     libMesh::EquationSystems equation_system(mesh);
 
-    testMeshAmalgamation demo (mesh,equation_system,"testMeshAmalgamation_field");
+    testEqualNeighborHeuristic demo (mesh,equation_system,"EqualNeighborHeuristic_field");
     demo.addVariableToSystem("random_data");
     demo.populateRandomData();
-    demo.writeOutputData("testMeshAmalgamation.e");
+    demo.findCluster();
+    demo.captureClusterID();
+    demo.writeOutputData("testEqualNeighborHeuristic.e");
 }
 
