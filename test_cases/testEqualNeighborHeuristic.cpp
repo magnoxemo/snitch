@@ -7,37 +7,44 @@
 #include "libmesh/libmesh.h"
 #include "EqualNeighborHeuristic.h"
 
-class testEqualNeighborHeuristic:public EqualNeighborHeuristic{
-public:
-    testEqualNeighborHeuristic(libMesh::Mesh &mesh,
-                            libMesh::EquationSystems &equation_system,
-                            std::string system_name): EqualNeighborHeuristic(mesh, equation_system, system_name) {}
+void PopulateRandomIntegers(libMesh::Mesh &mesh, libMesh::LinearImplicitSystem &system) {
+    libMesh::DofMap &dof_map = system.get_dof_map();
+    std::vector<libMesh::dof_id_type> dof_indices;
+    for (const auto &elem : mesh.element_ptr_range()) {
 
-    void populateRandomData(){
-        std::vector<libMesh::dof_id_type> dof_indices;
-        for (const auto &elem : _mesh.element_ptr_range()) {
-            _dof_map.dof_indices(elem, dof_indices);
-            int random_int = rand() % 5;
-            _system.solution->set(dof_indices[0], random_int);
-        }
-        _system.solution->close();
+        dof_map.dof_indices(elem, dof_indices);
+        int random_int = rand() % 5;
+        system.solution->set(dof_indices[0], 5 - random_int);
     }
-};
+    system.solution->close();
+}
 
+void AddVariableToSystem(libMesh::EquationSystems &equation_system,
+                          libMesh::LinearImplicitSystem &system, std::string var_name,
+                          bool needs_re_init = false) {
+    system.add_variable(var_name, libMesh::CONSTANT, libMesh::MONOMIAL);
+    if (!needs_re_init) {
+        equation_system.init();
+    } else {
+        equation_system.reinit();
+    }
+}
 int main(int argc, char **argv){
-
+    //preparing the mesh and the data
     libMesh::LibMeshInit init(argc, argv);
     libMesh::Mesh mesh(init.comm());
     unsigned int nx = 5;
     unsigned int ny = 5;
     libMesh::MeshTools::Generation::build_square(mesh, nx, ny, -10.0, 10.0, -10.0,10.0);
     libMesh::EquationSystems equation_system(mesh);
+    libMesh::LinearImplicitSystem &system =equation_system.add_system<libMesh::LinearImplicitSystem>("random_solution_field");
+    AddVariableToSystem(equation_system,system,"random_data");
+    PopulateRandomIntegers(mesh,system);
 
-    testEqualNeighborHeuristic demo (mesh,equation_system,"EqualNeighborHeuristic_field");
-    demo.addVariableToSystem("random_data");
-    demo.populateRandomData();
+    //actual clustering process
+    EqualNeighborHeuristic demo (mesh,equation_system,"random_solution_field","random_data");
     demo.findCluster();
     demo.captureClusterID();
-    demo.writeOutputData("testEqualNeighborHeuristic.e");
+    demo.writeOutputData("output.e");
 }
 

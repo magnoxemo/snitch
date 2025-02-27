@@ -33,9 +33,9 @@ protected:
   double getElementDataFromMesh(const libMesh::Elem *elem);
 
 public:
-  MeshAmalgamation(libMesh::Mesh &mesh,
-                   libMesh::EquationSystems &equation_system,
-                   std::string system_name);
+    MeshAmalgamation(libMesh::Mesh &mesh,
+                     libMesh::EquationSystems &equation_system,
+                     const std::string system_name,const std::string variable_name);
 
   virtual bool belongToCluster(libMesh::Elem *elem,
                                libMesh::Elem *neighbor_elem) = 0;
