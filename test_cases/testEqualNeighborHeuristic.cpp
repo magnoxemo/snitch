@@ -42,6 +42,9 @@ int main(int argc, char **argv){
     PopulateRandomIntegers(mesh,system);
 
     //actual clustering process
+    /* Now the framework presumes I have the mesh and equation_system
+     * and I am fully aware what is the name and type of the system (for now we are only allowing LinearImplicitSystem)
+     * which solution field (name of the variable) should be */
     EqualNeighborHeuristic demo (mesh,equation_system,"random_solution_field","random_data");
     demo.findCluster();
     demo.captureClusterID();
