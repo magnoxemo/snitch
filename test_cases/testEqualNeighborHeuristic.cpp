@@ -46,6 +46,7 @@ int main(int argc, char **argv){
      * and I am fully aware what is the name and type of the system (for now we are only allowing LinearImplicitSystem)
      * which solution field (name of the variable) should be */
     EqualNeighborHeuristic demo (mesh,equation_system,"random_solution_field","random_data");
+    demo.setTolerance(0.001);
     demo.findCluster();
     demo.captureClusterID();
     demo.writeOutputData("output.e");
