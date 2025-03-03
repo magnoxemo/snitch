@@ -12,12 +12,12 @@ void PopulateRandomIntegers(libMesh::Mesh &mesh,
                             const std::string system_name,
                             const std::string variable_name,needs_re_init=false) {
 
-  libMesh::LinearImplicitSystem system =
+  libMesh::LinearImplicitSystem& system =
       equation_system.add_system<libMesh::LinearImplicitSystem>(system_name);
 
   system.add_variable(variable_name, libMesh::CONSTANT, libMesh::MONOMIAL);
   if (needs_re_init){
-      equation_system.re_init();
+      equation_system.reinit();
   }
   else{
       equation_system.init();
