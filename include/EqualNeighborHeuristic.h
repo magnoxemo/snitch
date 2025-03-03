@@ -8,9 +8,10 @@ class EqualNeighborHeuristic : public MeshAmalgamation {
 protected:
     double _tol =0.000001;
 public:
-    EqualNeighborHeuristic(libMesh::Mesh &mesh, libMesh::EquationSystems &equation_system,
-              std::string system_name)
-      : MeshAmalgamation(mesh, equation_system, system_name) {}
+    EqualNeighborHeuristic(libMesh::Mesh &mesh,
+                           libMesh::EquationSystems &equation_system,
+                           const std::string system_name,const std::string variable_name)
+      : MeshAmalgamation(mesh,equation_system,system_name,variable_name) {}
 
   bool belongToCluster(libMesh::Elem *elem,
                        libMesh::Elem *neighbor_elem) override;

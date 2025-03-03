@@ -2,20 +2,20 @@
 #define MESHAMALGAMATION_H
 
 #include <cstdlib>
-#include <vector>
 #include <stdexcept>
+#include <vector>
 
 namespace libMesh {
-    class DofMap;
-    class Elem;
-    class EquationSystems;
-    class LinearImplicitSystem;
-    class Mesh;
-    class NumericVector;
-    class System;
-}
+class DofMap;
+class Elem;
+class EquationSystems;
+class LinearImplicitSystem;
+class Mesh;
+class NumericVector;
+class System;
+} // namespace libMesh
 
-class MeshAmalgamation{
+class MeshAmalgamation {
 
 private:
 protected:
@@ -23,7 +23,7 @@ protected:
   unsigned int _extra_element_integer_index;
   unsigned int _variable_index;
   std::string _system_name;
-  unsigned int _number_of_colors= 12;
+  unsigned int _number_of_colors = 12;
 
   libMesh::Mesh &_mesh;
   libMesh::EquationSystems &_equation_system;
@@ -35,7 +35,8 @@ protected:
 public:
   MeshAmalgamation(libMesh::Mesh &mesh,
                    libMesh::EquationSystems &equation_system,
-                   std::string system_name);
+                   const std::string system_name,
+                   const std::string variable_name);
 
   virtual bool belongToCluster(libMesh::Elem *elem,
                                libMesh::Elem *neighbor_elem) = 0;
