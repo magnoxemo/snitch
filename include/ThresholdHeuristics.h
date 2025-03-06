@@ -1,13 +1,13 @@
-#ifndef STANDARDDEVIATIONHEURISTICS_H
-#define STANDARDDEVIATIONHEURISTICS_H
+#ifndef THRESHOLDHEURISTICS_H
+#define THRESHOLDHEURISTICS_H
 #include "MeshAmalgamationBase.h"
-class StandardDeviationHeuristics : public MeshAmalgamation {
+class ThresholdHeuristics : public MeshAmalgamation {
 private:
   double _standard_deviation_tolerance =0.05;
 
 protected:
 public:
-  StandardDeviationHeuristics(libMesh::Mesh& mesh,
+    ThresholdHeuristics(libMesh::Mesh& mesh,
                               libMesh::EquationSystems &equation_system,
                               const std::string system_name,
                               const std::string variable_name)

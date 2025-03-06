@@ -2,13 +2,13 @@
 #include "libmesh/mesh_generation.h"
 #include <cmath>
 #include <cstdlib>
-#include "StandardDeviationHeuristics.h"
+#include "ThresholdHeuristics.h"
 
 #define alpha 0.01
 #define sigma_t_fuel 0.0332
 #define sigma_t_mod 0.052
 
-double flux(libMesh::Point &point) {
+double mean(libMesh::Point &point) {
     if (sqrt(point(0)*point(0)+point(1)*point(1))<5){
         return exp(-sigma_t_fuel*sqrt(point(0)*point(0)+point(1)*point(1)));
     }
@@ -26,7 +26,7 @@ double standard_dev(libMesh::Point &point) {
     }
 }
 
-void PopulateStandardDeviationField(libMesh::Mesh &mesh,
+void PopulateStochasticField(libMesh::Mesh &mesh,
                              libMesh::EquationSystems &equation_system,
                              const std::string system_name,
                              const std::string variable_name,
@@ -51,7 +51,7 @@ void PopulateStandardDeviationField(libMesh::Mesh &mesh,
     for (const auto &elem : mesh.element_ptr_range()) {
         dof_map.dof_indices(elem, dof_indices);
         libMesh::Point p = elem->vertex_average();
-        system.solution->set(dof_indices[variable_index], flux(p));
+        system.solution->set(dof_indices[variable_index], mean(p));
         system.solution->set(dof_indices[std_variable_index], standard_dev(p));
     }
     system.solution->close();
@@ -70,10 +70,10 @@ int main(int argc, char **argv) {
     libMesh::MeshTools::Generation::build_square(mesh, nx, ny, -10, 10.0, -10.0,
                                                  10.0);
     libMesh::EquationSystems equation_system(mesh);
-    PopulateStandardDeviationField(mesh, equation_system, name_of_the_system,
+    PopulateStochasticField(mesh, equation_system, name_of_the_system,
                             populated_variable_name,populated_std_variable_name);
 
-    StandardDeviationHeuristics std_field(mesh, equation_system, name_of_the_system,
+    ThresholdHeuristics std_field(mesh, equation_system, name_of_the_system,
                                                 populated_std_variable_name);
     std_field.setTolerance(0.06);
     std_field.findCluster();
