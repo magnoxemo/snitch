@@ -10,7 +10,7 @@
 void PopulateRandomIntegers(libMesh::Mesh &mesh,
                             libMesh::EquationSystems &equation_system,
                             const std::string system_name,
-                            const std::string variable_name,needs_re_init=false) {
+                            const std::string variable_name,bool needs_re_init=false) {
 
   libMesh::LinearImplicitSystem& system =
       equation_system.add_system<libMesh::LinearImplicitSystem>(system_name);
