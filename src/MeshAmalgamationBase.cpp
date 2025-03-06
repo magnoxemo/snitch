@@ -101,7 +101,7 @@ double MeshAmalgamation::getElementDataFromMesh(const libMesh::Elem *elem) {
   _dof_map.dof_indices(elem, dof_indices, _variable_index);
   _system.solution->get(dof_indices, solution_value);
 
-  return static_cast<double>(solution_value[_variable_index]);
+  return static_cast<double>(solution_value[0]);
 }
 
 void MeshAmalgamation::setNumberOfColors(unsigned int number_of_colors){
