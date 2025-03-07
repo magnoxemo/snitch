@@ -3,7 +3,7 @@
 #include "MeshAmalgamationBase.h"
 class ThresholdHeuristics : public MeshAmalgamation {
 private:
-  double _standard_deviation_tolerance =0.05;
+  double _threshold =0.05;
 
 protected:
 public:
@@ -14,7 +14,8 @@ public:
       : MeshAmalgamation(mesh, equation_system, system_name, variable_name) {}
   bool belongToCluster(libMesh::Elem *elem,
                        libMesh::Elem *neighbor_elem) override;
-  void setTolerance(double tol) { _standard_deviation_tolerance = tol; }
+  void findCluster(bool value_crosses_threshold = true ) override;
+  void setThreshold(double threshold) { _threshold = threshold; }
 
 };
 
