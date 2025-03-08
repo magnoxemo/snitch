@@ -76,7 +76,8 @@ int main(int argc, char **argv) {
     ThresholdHeuristics std_field(mesh, equation_system, name_of_the_system,
                                                 populated_std_variable_name);
     std_field.setTolerance(0.06);
-    std_field.findCluster(); //by default heuristic if the value crosses the threshold
+    std_field.setComparisonMode(true); //default is true but setting this here for an example
+    std_field.findCluster();
     std_field.setNumberOfColors(23);
     std_field.captureClusterID();
     std_field.writeOutputData("output.e");

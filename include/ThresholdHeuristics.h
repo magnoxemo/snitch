@@ -4,7 +4,7 @@
 class ThresholdHeuristics : public MeshAmalgamation {
 private:
   double _threshold =0.05;
-
+  bool _value_crosses_threshold = true;
 protected:
 public:
     ThresholdHeuristics(libMesh::Mesh& mesh,
@@ -14,8 +14,8 @@ public:
       : MeshAmalgamation(mesh, equation_system, system_name, variable_name) {}
   bool belongToCluster(libMesh::Elem *elem,
                        libMesh::Elem *neighbor_elem) override;
-  void findCluster(bool value_crosses_threshold = true ) override;
   void setThreshold(double threshold) { _threshold = threshold; }
+  void setComparisonMode (bool value_crosses_threshold) { _value_crosses_threshold =value_crosses_threshold; }
 
 };
 
