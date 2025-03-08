@@ -33,7 +33,7 @@ void PopulatePolynomialField(libMesh::Mesh &mesh,
   for (const auto &elem : mesh.element_ptr_range()) {
     dof_map.dof_indices(elem, dof_indices);
     libMesh::Point p = elem->vertex_average();
-    system.solution->set(dof_indices[0], f(p););
+    system.solution->set(dof_indices[0], f(p));
   }
   system.solution->close();
 }
