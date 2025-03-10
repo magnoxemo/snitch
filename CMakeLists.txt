@@ -8,10 +8,8 @@ set(EIGEN_PATH "/usr/include/eigen3")
 set(SNITCH_INCLUDE_PATH "/home/ebny_walid/Documents/github/snitch/include")
 set(SNITCH_SRC_PATH "/home/ebny_walid/Documents/github/snitch/src")
 
-#magic part (stack overflow )that I don't fully understand but my best guess is that
-#it's forcing cmake not to change dir of the precompiled libmesh.so file?
-#ebny_walid@magnox:~/Documents/github/snitch/build (cmake_file) $ ./testLocalMeanHeuristics
-#./testLocalMeanHeuristics: error while loading shared libraries: libmesh_opt.so.0: cannot open shared object file: No such file or directory
+#magic part (stack overflow )that I don't fully understand
+#it's forcing cmake not to change dir of the precompiled libmesh.so file
 
 set(CMAKE_SKIP_BUILD_RPATH  FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
