@@ -9,7 +9,7 @@ protected:
     double _jump_tolerance = 0.001;
 
 public:
-    GradientJumpHeuristics((libMesh::Mesh &mesh,
+    GradientJumpHeuristics(libMesh::Mesh &mesh,
                             libMesh::EquationSystems &equation_system,
                             const std::string system_name,
                             const std::string variable_name)
