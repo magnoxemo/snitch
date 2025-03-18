@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
   libMesh::MeshTools::Generation::build_square(mesh, nx, ny, -10.0, 10.0, -10.0,
                                                10.0);
   libMesh::EquationSystems equation_system(mesh);
-  PopulateSyntheticData(mesh, equation_system, name_of_the_system,
+  PopulateSyntheticData(equation_system, name_of_the_system,
                         populated_variable_name, CalculateStep_x);
 
   EqualNeighborHeuristic demo(mesh, equation_system, name_of_the_system,
