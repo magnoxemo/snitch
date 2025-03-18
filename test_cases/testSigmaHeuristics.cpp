@@ -9,21 +9,25 @@
 #define sigma_t_mod 0.052
 
 double mean(libMesh::Point &point) {
-  if (sqrt(point(0) * point(0) + point(1) * point(1)) < 5) {
-    return exp(-sigma_t_fuel * sqrt(point(0) * point(0) + point(1) * point(1)));
-  } else {
-    return exp(-sigma_t_mod * sqrt(point(0) * point(0) + point(1) * point(1)));
-  }
+
+  double r = sqrt(point(0) * point(0) + point(1) * point(1));
+  double sigma = sigma_t_fuel;
+
+  if (r > 5)
+    sigma = sigma_t_mod;
+
+  return exp(-sigma * r);
 }
+
 double standard_dev(libMesh::Point &point) {
 
-  if (sqrt(point(0) * point(0) + point(1) * point(1)) < 5) {
-    return alpha * pow(sigma_t_fuel, -sigma_t_fuel * sqrt(point(0) * point(0) +
-                                                          point(1) * point(1)));
-  } else {
-    return alpha * pow(sigma_t_mod, -sigma_t_mod * sqrt(point(0) * point(0) +
-                                                        point(1) * point(1)));
-  }
+  double r = sqrt(point(0) * point(0) + point(1) * point(1));
+  double sigma = sigma_t_fuel;
+
+  if (r > 5)
+    sigma = sigma_t_mod;
+
+  return alpha * pow(sigma, -sigma * r);
 }
 
 void PopulateStochasticField(libMesh::Mesh &mesh,
