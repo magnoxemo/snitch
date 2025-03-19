@@ -7,7 +7,6 @@
 void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
                            const std::string system_name,
                            const std::string variable_name,
-                           double (*CalculateData)(const libMesh::Point &),
-                           bool needs_re_init = false);
+                           double (*CalculateData)(const libMesh::Point &));
 
 #endif

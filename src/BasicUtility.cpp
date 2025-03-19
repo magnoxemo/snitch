@@ -10,15 +10,15 @@
 void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
                            const std::string system_name,
                            const std::string variable_name,
-                           double (*CalculateData)(const libMesh::Point &),
-                           bool needs_re_init) {
+                           double (*CalculateData)(const libMesh::Point &)) {
 
   libMesh::MeshBase &mesh = equation_system.get_mesh();
   libMesh::LinearImplicitSystem &system =
       equation_system.add_system<libMesh::LinearImplicitSystem>(system_name);
 
   system.add_variable(variable_name, libMesh::CONSTANT, libMesh::MONOMIAL);
-  if (needs_re_init) {
+  const unsigned int variable_index = system.variable_number(variable_name);
+  if (system.is_initialized()) {
     equation_system.reinit();
   } else {
     equation_system.init();
@@ -31,7 +31,7 @@ void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
     dof_map.dof_indices(elem, dof_indices);
     libMesh::Point p = elem->vertex_average();
     double score = CalculateData(p);
-    system.solution->set(dof_indices[0], score);
+    system.solution->set(dof_indices[variable_index], score);
   }
 
   system.solution->close();
