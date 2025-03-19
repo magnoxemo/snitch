@@ -2,7 +2,6 @@
 #include "EqualNeighborHeuristic.h"
 
 #include "libmesh/libmesh.h"
-#include "libmesh/mesh_generation.h"
 
 double CalculateStep_x(const libMesh::Point &p) {
   double dx = 0.5;

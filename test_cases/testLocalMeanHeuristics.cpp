@@ -1,10 +1,10 @@
-#include "libmesh/libmesh.h"
-#include "libmesh/mesh_generation.h"
 #include <cmath>
 #include <cstdlib>
 
 #include "BasicUtility.h"
 #include "LocalMeanHeuristics.h"
+
+#include "libmesh/libmesh.h"
 
 double f(const libMesh::Point &point) {
   // x = point (0)

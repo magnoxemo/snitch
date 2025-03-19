@@ -7,7 +7,6 @@
 #include "EqualNeighborHeuristic.h"
 
 #include "libmesh/libmesh.h"
-#include "libmesh/mesh_generation.h"
 
 #define RANDOM_NUMBER_RANGE 5;
 
