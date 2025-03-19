@@ -11,7 +11,7 @@ double CalculateStep (const libMesh::Point & p){
     double dstep = 0.5;
     double x = p(0);
     double y = p(1);
-    double score =  (y-LinearFunction(x))/dstep;
+    double score =  int(y-LinearFunction(x))/dstep;
     return score;
 }
 
