@@ -1,4 +1,5 @@
-# Snitch: A Mesh Tally Clustering Program
+# Snitch
+Snitch is a mesh tally clustering program built on top of libMesh. Currently I am using and developing this as a test bed framework for my research
 
 ## Running Snitch
 To execute Snitch, use the following command format (assuming the executable for the test case is called snitch):
