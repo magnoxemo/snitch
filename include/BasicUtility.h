@@ -9,4 +9,6 @@ void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
                            const std::string variable_name,
                            double (*CalculateData)(const libMesh::Point &));
 
+void BuildMesh(char **argv, libMesh::Mesh &mesh);
+
 #endif
