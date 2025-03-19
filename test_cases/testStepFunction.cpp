@@ -16,15 +16,13 @@ int main(int argc, char **argv) {
 
   libMesh::LibMeshInit init(argc, argv);
   libMesh::Mesh mesh(init.comm());
-  unsigned int nx = 10;
-  unsigned int ny = 10;
-  libMesh::MeshTools::Generation::build_square(mesh, nx, ny, -10.0, 10.0, -10.0,
-                                               10.0);
+  BuildMesh(argv, mesh);
+
   libMesh::EquationSystems equation_system(mesh);
   PopulateSyntheticData(equation_system, name_of_the_system,
                         populated_variable_name, CalculateStep_x);
 
-  EqualNeighborHeuristic demo(mesh, equation_system, name_of_the_system,
+  EqualNeighborHeuristic demo(equation_system, name_of_the_system,
                               populated_variable_name);
   demo.setTolerance(0.001);
   demo.findCluster();

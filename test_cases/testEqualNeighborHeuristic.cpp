@@ -3,34 +3,16 @@
 #include <ctime>
 #include <random>
 
+#include "BasicUtility.h"
 #include "EqualNeighborHeuristic.h"
+
 #include "libmesh/libmesh.h"
 #include "libmesh/mesh_generation.h"
 
-void PopulateRandomIntegers(libMesh::Mesh &mesh,
-                            libMesh::EquationSystems &equation_system,
-                            const std::string system_name,
-                            const std::string variable_name,bool needs_re_init=false) {
+#define RANDOM_NUMBER_RANGE 5;
 
-  libMesh::LinearImplicitSystem& system =
-      equation_system.add_system<libMesh::LinearImplicitSystem>(system_name);
-
-  system.add_variable(variable_name, libMesh::CONSTANT, libMesh::MONOMIAL);
-  if (needs_re_init){
-      equation_system.reinit();
-  }
-  else{
-      equation_system.init();
-  }
-
-  libMesh::DofMap &dof_map = system.get_dof_map();
-  std::vector<libMesh::dof_id_type> dof_indices;
-  for (const auto &elem : mesh.element_ptr_range()) {
-    dof_map.dof_indices(elem, dof_indices);
-    int random_int = rand() % 5;
-    system.solution->set(dof_indices[0], 5 - random_int);
-  }
-  system.solution->close();
+double CalculateRandomData(const libMesh::Point &p) {
+  return rand() % RANDOM_NUMBER_RANGE;
 }
 
 int main(int argc, char **argv) {
@@ -42,16 +24,14 @@ int main(int argc, char **argv) {
   // preparing the mesh and the data
   libMesh::LibMeshInit init(argc, argv);
   libMesh::Mesh mesh(init.comm());
-  unsigned int nx = 5;
-  unsigned int ny = 5;
-  libMesh::MeshTools::Generation::build_square(mesh, nx, ny, -10.0, 10.0, -10.0,
-                                               10.0);
+  BuildMesh(argv, mesh);
   libMesh::EquationSystems equation_system(mesh);
-  PopulateRandomIntegers(mesh, equation_system, name_of_the_system,
-                         populated_variable_name);
+
+  PopulateSyntheticData(equation_system, name_of_the_system,
+                        populated_variable_name, CalculateRandomData);
 
   // actual clustering process
-  EqualNeighborHeuristic demo(mesh, equation_system, name_of_the_system,
+  EqualNeighborHeuristic demo(equation_system, name_of_the_system,
                               populated_variable_name);
   demo.setTolerance(0.001);
   demo.findCluster();
