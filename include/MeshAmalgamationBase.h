@@ -10,8 +10,8 @@ class DofMap;
 class Elem;
 class EquationSystems;
 class LinearImplicitSystem;
-class Mesh;
-class NumericVector;
+class MeshBase;
+template <typename T> class NumericVector;
 class System;
 } // namespace libMesh
 
@@ -44,7 +44,6 @@ public:
   void printSystemInformation();
   void writeOutputData(std::string output_file_name);
   void setNumberOfColors(unsigned int number_of_colors);
-  void addVariableToSystem(const std::string variable_name);
 };
 
 #endif
