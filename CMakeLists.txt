@@ -2,9 +2,8 @@ cmake_minimum_required(VERSION 3.28)
 project(snitch)
 
 find_package(Eigen3 REQUIRED)
-find_package(MPI REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}")
-find_package(LibMesh REQUIRED)
+find_package(LibMesh)
 
 include_directories(${EIGEN3_INCLUDE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
