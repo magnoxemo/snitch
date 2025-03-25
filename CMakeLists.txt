@@ -18,14 +18,5 @@ endif()
 
 set(CMAKE_CXX_COMPILER mpicxx)
 
-add_executable(testLocalMeanHeuristics test_cases/testLocalMeanHeuristics.cpp ${SOURCE_FILES} ${SNITCH_SOURCES})
-add_executable(testEqualNeighborHeuristic test_cases/testEqualNeighborHeuristic.cpp ${SOURCE_FILES} ${SNITCH_SOURCES})
-
-target_link_libraries(testLocalMeanHeuristics
-        ${MPI_LIBRARIES} ${LIBMESH_LINK_FLAGS}
-)
-
-target_link_libraries(testEqualNeighborHeuristic
-        ${MPI_LIBRARIES}
-        ${LIBMESH_LINK_FLAGS}
-)
+add_subdirectory(src)
+add_subdirectory(test_cases)
