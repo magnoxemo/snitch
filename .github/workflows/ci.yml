@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: eigen3 install
-      run: |
+        run: |
         yum install -y eigen3-devel
       - name: pre_stage
         run: |
