@@ -14,6 +14,13 @@ jobs:
       image: idaholab/moose-dev
 
     steps:
+      - name: eigen3 install
+        run: |
+          yum install eigen3-devel
+      - name: pre_stage
+        run: |
+          export PATH="/opt/libmesh/bin:$PATH"
+          export LIBMESH_DIR="/opt/libmesh"
       - name: Checkout code
         uses: actions/checkout@v3
 
