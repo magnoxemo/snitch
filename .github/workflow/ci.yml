@@ -27,6 +27,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          cd ../
-          chmod +x run_test_cases.sh
-          ./run_test_cases.sh
+          source ./run_test_cases.sh
