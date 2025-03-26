@@ -19,7 +19,8 @@ jobs:
 
       - name: Install C++ Compiler
         run: |
-          apt update && apt install -y mpich
+          apt update
+          apt install -y mpich
       - name: Build
         run: |
           mkdir build
