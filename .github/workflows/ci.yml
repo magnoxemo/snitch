@@ -11,7 +11,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     container:
-      image: idaholab/moose
+      image: benjaminkirk/rocky9-libmesh
 
     steps:
       - name: Checkout code
