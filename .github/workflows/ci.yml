@@ -17,12 +17,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: eigen3 install
+      - name: Install Eigen3
         run: |
-        yum install -y eigen3-devel
-      - name: pre_stage
+          yum install -y eigen3-devel
+
+      - name: Pre-stage setup
         run: |
           export PATH="/opt/libmesh/bin:$PATH"
+
       - name: Build
         run: |
           mkdir build
