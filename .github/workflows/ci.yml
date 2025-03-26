@@ -25,8 +25,11 @@ jobs:
         run: |
           export PATH="/opt/libmesh/bin:$PATH"
           export PATH="/opt/openmpi/bin:$PATH"
-          which mpicxx
-          export CXX=mpicxx
+          
+
+      - name: Build
+        run: |
+          export CXX = mpicxx
           mkdir build
           cd build
           cmake ..
