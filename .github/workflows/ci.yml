@@ -14,18 +14,15 @@ jobs:
       image: idaholab/moose-dev
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: eigen3 install
-        run: |
-          yum install -y eigen3-devel
-      - name: Install MPCXX Compiler
-        run: |
-          yum install -y mpich mpich-devel
+      run: |
+        yum install -y eigen3-devel
       - name: pre_stage
         run: |
           export PATH="/opt/libmesh/bin:$PATH"
-          export LIBMESH_DIR="/opt/libmesh"
-      - name: Checkout code
-        uses: actions/checkout@v3
       - name: Build
         run: |
           mkdir build
