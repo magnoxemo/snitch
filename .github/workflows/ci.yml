@@ -22,6 +22,7 @@ jobs:
         run: |
           yum install -y eigen3-devel
           yum install -y openmpi-devel
+          yum install -y mpich
 
       - name: Pre-stage setup
         shell: bash
