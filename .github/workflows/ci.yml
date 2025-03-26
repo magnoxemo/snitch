@@ -30,7 +30,7 @@ jobs:
 
       - name: Build
         run: |
-          echo $PATH
+          echo $GITHUB_PATH
           echo $CXX
           which mpicxx
           mkdir build
