@@ -1,4 +1,5 @@
 #include "LocalMeanHeuristics.h"
+#include "libmesh/elem.h"
 
 bool LocalMeanHeuristics::belongToCluster(libMesh::Elem *elem,
                                           libMesh::Elem *neighbor_elem) {
