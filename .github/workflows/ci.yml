@@ -29,6 +29,7 @@ jobs:
         run: |
           export PATH="/opt/libmesh/bin:$PATH"
           export PATH="/opt/openmpi/bin:$PATH"
+          source /environment
           mkdir build
           cd build
           cmake ..
