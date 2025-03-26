@@ -20,6 +20,7 @@ jobs:
       - name: Install Eigen3
         run: |
           yum install -y eigen3-devel
+          yum install -y openmpi-devel
 
       - name: Pre-stage setup
         run: |
