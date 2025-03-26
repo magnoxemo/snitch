@@ -21,12 +21,14 @@ jobs:
         shell: bash
         run: |
           yum install -y eigen3-devel
+          yum install -y openmpi-devel
           yum install -y mpich
 
       - name: Build
         shell: bash
         run: |
           export PATH="/opt/libmesh/bin:$PATH"
+          export PATH="/opt/openmpi/bin:$PATH"
           mkdir build
           cd build
           cmake ..
