@@ -23,15 +23,8 @@ jobs:
 
       - name: Pre-stage setup
         run: |
-          echo  "/opt/libmesh/bin" >> "$GITHUB_PATH"
-          echo  "/opt/openmpi/bin" >> "$GITHUB_PATH"
-          echo $PATH
-          echo $GITHUB_PATH
-
-      - name: Build
-        run: |
-          echo $GITHUB_PATH
-          echo $CXX
+          export PATH="/opt/libmesh/bin:$PATH"
+          export PATH="/opt/openmpi/bin:$PATH"
           which mpicxx
           mkdir build
           cd build
