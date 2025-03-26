@@ -12,8 +12,9 @@ if (LIBMESH_CONFIG)
 
     separate_arguments(LIBMESH_INCLUDE_DIRS UNIX_COMMAND "${LIBMESH_INCLUDE_DIRS}")
     list(TRANSFORM LIBMESH_INCLUDE_DIRS REPLACE "^-I" "")
-
+    set(LIBMESH_FOUND TRUE)
     message("libmesh include:${LIBMESH_INCLUDE_DIRS}")
     message("libmesh lib : ${LIBMESH_LINK_FLAGS}")
-
+else()
+    message(FATAL_ERROR "LibMesh not found")
 endif()
