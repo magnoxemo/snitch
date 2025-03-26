@@ -25,9 +25,11 @@ jobs:
         run: |
           export PATH="/opt/libmesh/bin:$PATH"
           export PATH="/opt/openmpi/bin:$PATH"
+          echo $PATH
 
       - name: Build
         run: |
+          echo $PATH
           echo $CXX
           which mpicxx
           mkdir build
