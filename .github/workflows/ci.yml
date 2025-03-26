@@ -32,7 +32,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          export CXX = mpicxx
+          export CXX=mpicxx
           mkdir build
           cd build
           cmake ..
