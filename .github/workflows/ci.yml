@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: eigen3 install
         run: |
-          yum install eigen3-devel
+          yum install -y eigen3-devel
       - name: pre_stage
         run: |
           export PATH="/opt/libmesh/bin:$PATH"
