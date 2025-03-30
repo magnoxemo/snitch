@@ -18,10 +18,12 @@ class System;
 class MeshAmalgamation {
 
 private:
+    libMesh::DofMap& freshDofMap();
 protected:
   std::string _variable_name;
   unsigned int _extra_element_integer_index;
-  unsigned int _variable_index;
+  unsigned int _synthetic_variable_index;
+  unsigned int _metric_variable_index;
   std::string _system_name;
   unsigned int _number_of_colors = 12;
 
@@ -30,7 +32,7 @@ protected:
   libMesh::LinearImplicitSystem &_system;
   libMesh::DofMap &_dof_map;
 
-  double getElementDataFromMesh(const libMesh::Elem *elem);
+  double getElementDataFromMesh(const libMesh::Elem *elem,const unsigned int variable_index);
 
 public:
   MeshAmalgamation(libMesh::EquationSystems &equation_system,
@@ -39,6 +41,8 @@ public:
 
   virtual bool belongToCluster(libMesh::Elem *elem,
                                libMesh::Elem *neighbor_elem) = 0;
+  void prepareClusteringMetrics();
+  virtual double calculateMetrics(libMesh::Elem *elem) =0;
   virtual void findCluster();
   void captureClusterID();
   void printSystemInformation();

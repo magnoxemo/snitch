@@ -17,6 +17,7 @@ public:
   bool belongToCluster(libMesh::Elem *elem,
                        libMesh::Elem *neighbor_elem) override;
   void setTolerance(double tol) { _tol = tol; }
+  virtual double calculateMetrics(libMesh::Elem *elem) override;
 };
 
 #endif

@@ -22,6 +22,7 @@ public:
   void setComparisonMode(bool value_crosses_threshold) {
     _value_crosses_threshold = value_crosses_threshold;
   }
+  virtual double calculateMetrics (libMesh::Elem *elem) override;
 };
 
 #endif
