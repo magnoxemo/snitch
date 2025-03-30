@@ -20,7 +20,6 @@ void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
 
   system.add_variable(variable_name, libMesh::CONSTANT, libMesh::MONOMIAL);
   system.add_variable("metrics", libMesh::CONSTANT, libMesh::MONOMIAL);
-  equation_system.reinit();
 
   const unsigned int variable_index = system.variable_number(variable_name);
   if (system.is_initialized()) {
