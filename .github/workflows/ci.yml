@@ -30,7 +30,6 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          source /environment
           mkdir build
           cd build
           cmake ..
