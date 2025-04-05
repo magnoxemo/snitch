@@ -30,7 +30,6 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          export PATH="/opt/libmesh/bin:$PATH"
           source /environment
           mkdir build
           cd build
