@@ -20,12 +20,12 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          export CMAKE_PREFIX_PATH="/opt/libmesh:${CMAKE_PREFIX_PATH}"
-          export PATH="/opt/libmesh/include:$PATH"         
+          export CMAKE_PREFIX_PATH="/opt/libmesh/include:${CMAKE_PREFIX_PATH}"
+          export PATH="/opt/libmesh/bin:$PATH"         
           source /environment
           mkdir build
           cd build
-          cmake ..
+          cmake -DEigen3_DIR=/opt/libmesh/include ..
           make
           echo "Running tests inside the container"
 
