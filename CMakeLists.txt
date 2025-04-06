@@ -1,13 +1,15 @@
 cmake_minimum_required(VERSION 3.26)
 project(snitch)
 
-find_package(Eigen3 REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}")
+find_package(Eigen3)
+find_package(MPI REQUIRED)
 find_package(LibMesh REQUIRED)
 
 include_directories(${EIGEN3_INCLUDE_DIR})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${LIBMESH_INCLUDE_DIRS})
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 file(GLOB SNITCH_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
