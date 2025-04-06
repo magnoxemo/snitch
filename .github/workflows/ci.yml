@@ -1,0 +1,34 @@
+name: james potter
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container:
+      image: idaholab/moose-dev
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        shell: bash
+        run: |
+          export PATH="/opt/libmesh/bin:$PATH"
+          source /environment
+          mkdir build
+          cd build
+          EIGEN3_ROOT=/opt/libmesh/include cmake ..
+          make
+          echo "Running tests inside the container"
+
+      - name: Run Tests
+        shell: bash
+        run: |
+          source ./run_test_cases.sh

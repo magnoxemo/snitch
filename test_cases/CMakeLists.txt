@@ -6,6 +6,5 @@ foreach(TEST_SOURCE ${TEST_SOURCES})
     target_link_libraries(${TEST_NAME}
             MeshAmalgamationClustering
             ${LIBMESH_LINK_FLAGS}
-            ${EIGEN3_LIBRARIES}
     )
 endforeach()
