@@ -4,5 +4,4 @@ add_library(MeshAmalgamationClustering SHARED ${SNITCH_SOURCES})
 
 target_link_libraries(MeshAmalgamationClustering
         ${LIBMESH_LINK_FLAGS}
-        ${EIGEN3_LIBRARIES}
 )
