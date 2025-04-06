@@ -20,8 +20,8 @@ MeshAmalgamation::MeshAmalgamation(libMesh::EquationSystems &equation_system,
           _dof_map(_system.get_dof_map()) {
 
     _variable_name = variable_name;
-    _synthetic_variable_index = _system.variable_number(_variable_name);
-    _metric_variable_index = _system.variable_number("metrics");
+    _variable_index = _system.variable_number(_variable_name);
+    _metric_index = _system.variable_number("metrics");
 
 }
 
@@ -31,7 +31,7 @@ void MeshAmalgamation::prepareClusteringMetrics() {
   for (const auto &elem : _mesh.element_ptr_range()) {
     _dof_map.dof_indices(elem, dof_indices);
     double metric = calculateMetrics(elem);
-    _system.solution->set(dof_indices[_metric_variable_index], metric);
+    _system.solution->set(dof_indices[_metric_index], metric);
   }
   _system.solution->close();
 }
@@ -106,12 +106,12 @@ void MeshAmalgamation::printSystemInformation() {
 
 double
 MeshAmalgamation::getElementDataFromMesh(const libMesh::Elem *elem,
-                                         const unsigned int _variable_index) {
+                                         const unsigned int variable_index) {
 
   std::vector<libMesh::dof_id_type> dof_indices;
   std::vector<double> solution_value(1);
 
-  _dof_map.dof_indices(elem, dof_indices, _variable_index);
+  _dof_map.dof_indices(elem, dof_indices, variable_index);
   _system.solution->get(dof_indices, solution_value);
 
   return static_cast<double>(solution_value[0]);

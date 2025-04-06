@@ -4,7 +4,7 @@
 bool LocalMeanHeuristics::belongToCluster(libMesh::Elem *elem,
                                           libMesh::Elem *neighbor_elem) {
 
-  return std::abs(getElementDataFromMesh(elem,_synthetic_variable_index) -getElementDataFromMesh(neighbor_elem,_metric_variable_index)) < _tol;
+  return std::abs(getVariableData(elem) -getMetricData(neighbor_elem) < _tol;
 }
 
 double LocalMeanHeuristics::calculateMetrics(libMesh::Elem *elem){
@@ -14,7 +14,7 @@ double LocalMeanHeuristics::calculateMetrics(libMesh::Elem *elem){
     for (unsigned int side = 0; side < elem->n_sides(); side++) {
         const libMesh::Elem *current_elem = elem->neighbor_ptr(side);
         if (current_elem) {
-            local_score += getElementDataFromMesh(current_elem,_synthetic_variable_index);
+            local_score += getVariableData(current_elem);
             number_of_active_neighbor++;
         }
     }

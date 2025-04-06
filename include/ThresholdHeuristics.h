@@ -16,13 +16,14 @@ public:
                       const std::string system_name,
                       const std::string variable_name)
       : MeshAmalgamation(equation_system, system_name, variable_name) {}
+
+  virtual double calculateMetrics (libMesh::Elem *elem) override;
   virtual bool belongToCluster(libMesh::Elem *elem,
                                libMesh::Elem *neighbor_elem) override;
   void setThreshold(double threshold) { _threshold = threshold; }
   void setComparisonMode(bool value_crosses_threshold) {
     _value_crosses_threshold = value_crosses_threshold;
   }
-  virtual double calculateMetrics (libMesh::Elem *elem) override;
 };
 
 #endif
