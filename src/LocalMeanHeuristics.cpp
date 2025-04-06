@@ -4,7 +4,7 @@
 bool LocalMeanHeuristics::belongToCluster(libMesh::Elem *elem,
                                           libMesh::Elem *neighbor_elem) {
 
-  return std::abs(getVariableData(elem) -getMetricData(neighbor_elem) < _tol;
+  return std::abs(getVariableData(elem) -getMetricData(neighbor_elem)) < _tol;
 }
 
 double LocalMeanHeuristics::calculateMetrics(libMesh::Elem *elem){
