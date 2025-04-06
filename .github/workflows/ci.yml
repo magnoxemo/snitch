@@ -17,12 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          yum install -y eigen3-devel
-          yum install -y mpich
-
       - name: Build
         shell: bash
         run: |
@@ -30,7 +24,7 @@ jobs:
           source /environment
           mkdir build
           cd build
-          cmake ..
+          EIGEN3_ROOT=/opt/libmesh/include cmake ..
           make
           echo "Running tests inside the container"
 
