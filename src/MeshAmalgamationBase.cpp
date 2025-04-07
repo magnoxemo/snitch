@@ -63,7 +63,8 @@ void MeshAmalgamation::findCluster() {
         if (neighbor_elem && neighbor_elem->get_extra_integer(
                                  _extra_element_integer_index) == not_visited) {
           if (belongToCluster(current_elem, neighbor_elem)) {
-            elem->set_extra_integer(_extra_element_integer_index, cluster_id);
+
+              elem->set_extra_integer(_extra_element_integer_index, cluster_id);
             neighbor_elem->set_extra_integer(_extra_element_integer_index,
                                              cluster_id);
             neighbor_stack.push(neighbor_elem);
@@ -87,8 +88,10 @@ void MeshAmalgamation::captureClusterID() {
   std::vector<libMesh::dof_id_type> local_dof_indices;
   for (const auto &elem : _mesh.element_ptr_range()) {
     local_dof_map.dof_indices(elem, local_dof_indices);
-    int cluster_id = elem->get_extra_integer(_extra_element_integer_index) %
-                     _number_of_colors;
+    int cluster_id = elem->get_extra_integer(_extra_element_integer_index) ;
+    if (cluster_id>0){
+        cluster_id=cluster_id%_number_of_colors;
+    }
     local_system.solution->set(local_dof_indices[variable_index], cluster_id);
   }
 
