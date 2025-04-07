@@ -8,6 +8,7 @@
 #include "libmesh/numeric_vector.h"
 #include "libmesh/system.h"
 
+
 void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
                            const std::string system_name,
                            const std::string variable_name,
@@ -18,6 +19,8 @@ void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
       equation_system.add_system<libMesh::LinearImplicitSystem>(system_name);
 
   system.add_variable(variable_name, libMesh::CONSTANT, libMesh::MONOMIAL);
+  system.add_variable("metrics", libMesh::CONSTANT, libMesh::MONOMIAL);
+
   const unsigned int variable_index = system.variable_number(variable_name);
   if (system.is_initialized()) {
     equation_system.reinit();

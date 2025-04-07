@@ -13,17 +13,32 @@
 MeshAmalgamation::MeshAmalgamation(libMesh::EquationSystems &equation_system,
                                    const std::string system_name,
                                    const std::string variable_name)
-    : _mesh(equation_system.get_mesh()), _equation_system(equation_system),
-      _system_name(system_name),
-      _system(_equation_system.get_system<libMesh::LinearImplicitSystem>(
-          _system_name)),
-      _dof_map(_system.get_dof_map()) {
-  _variable_name = variable_name;
-  _variable_index = _system.variable_number(_variable_name);
+        : _mesh(equation_system.get_mesh()), _equation_system(equation_system),
+          _system_name(system_name),
+          _system(_equation_system.get_system<libMesh::LinearImplicitSystem>(
+                  _system_name)),
+          _dof_map(_system.get_dof_map()) {
+
+    _variable_name = variable_name;
+    _variable_index = _system.variable_number(_variable_name);
+    _metric_index = _system.variable_number("metrics");
+
+}
+
+void MeshAmalgamation::prepareClusteringMetrics() {
+
+  std::vector<libMesh::dof_id_type> dof_indices;
+  for (const auto &elem : _mesh.element_ptr_range()) {
+    _dof_map.dof_indices(elem, dof_indices);
+    double metric = calculateMetrics(elem);
+    _system.solution->set(dof_indices[_metric_index], metric);
+  }
+  _system.solution->close();
 }
 
 void MeshAmalgamation::findCluster() {
 
+  prepareClusteringMetrics();
   int not_visited = -1;
   _extra_element_integer_index =
       _mesh.add_elem_integer(_variable_name, not_visited);
@@ -89,12 +104,14 @@ void MeshAmalgamation::printSystemInformation() {
   _equation_system.print_info();
 }
 
-double MeshAmalgamation::getElementDataFromMesh(const libMesh::Elem *elem) {
+double
+MeshAmalgamation::getElementDataFromMesh(const libMesh::Elem *elem,
+                                         const unsigned int variable_index) {
 
   std::vector<libMesh::dof_id_type> dof_indices;
   std::vector<double> solution_value(1);
 
-  _dof_map.dof_indices(elem, dof_indices, _variable_index);
+  _dof_map.dof_indices(elem, dof_indices, variable_index);
   _system.solution->get(dof_indices, solution_value);
 
   return static_cast<double>(solution_value[0]);
