@@ -51,7 +51,7 @@ void MeshAmalgamation::findCluster() {
     }
     int cluster_id = elem->id();
     neighbor_stack.push(elem);
-    elem->set_extra_integer(_extra_element_integer_index, cluster_id);
+
 
     while (!neighbor_stack.empty()) {
       libMesh::Elem *current_elem = neighbor_stack.top();
@@ -63,6 +63,7 @@ void MeshAmalgamation::findCluster() {
         if (neighbor_elem && neighbor_elem->get_extra_integer(
                                  _extra_element_integer_index) == not_visited) {
           if (belongToCluster(current_elem, neighbor_elem)) {
+            elem->set_extra_integer(_extra_element_integer_index, cluster_id);
             neighbor_elem->set_extra_integer(_extra_element_integer_index,
                                              cluster_id);
             neighbor_stack.push(neighbor_elem);
