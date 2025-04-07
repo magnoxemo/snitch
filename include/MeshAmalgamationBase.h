@@ -17,8 +17,6 @@ class System;
 
 class MeshAmalgamation {
 
-private:
-    libMesh::DofMap& freshDofMap();
 protected:
   std::string _variable_name;
   unsigned int _extra_element_integer_index;
