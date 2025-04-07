@@ -90,7 +90,7 @@ void MeshAmalgamation::captureClusterID() {
     local_dof_map.dof_indices(elem, local_dof_indices);
     int cluster_id = elem->get_extra_integer(_extra_element_integer_index) ;
     if (cluster_id>0){
-        cluster_id=cluster_id%_number_of_colors;
+        cluster_id%_number_of_colors;
     }
     local_system.solution->set(local_dof_indices[variable_index], cluster_id);
   }
