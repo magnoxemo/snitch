@@ -41,15 +41,25 @@ void PopulateSyntheticData(libMesh::EquationSystems &equation_system,
   system.solution->close();
 }
 
-void BuildMesh(char **argv, libMesh::Mesh &mesh) {
+void Build2DMesh(char **argv, libMesh::Mesh &mesh) {
 
-  unsigned int nx = std::atoi(argv[1]);
-  unsigned int ny = std::atoi(argv[2]);
-  double lower_left_x = std::atof(argv[3]);
-  double upper_left_x = std::atof(argv[4]);
-  double lower_left_y = std::atof(argv[5]);
-  double upper_left_y = std::atof(argv[6]);
+    unsigned int nx = std::atoi(argv[1]);
+    unsigned int ny = std::atoi(argv[2]);
+    double lower_left_x = std::atof(argv[3]);
+    double upper_left_x = std::atof(argv[4]);
+    double lower_left_y = std::atof(argv[5]);
+    double upper_left_y = std::atof(argv[6]);
 
-  libMesh::MeshTools::Generation::build_square(
-      mesh, nx, ny, lower_left_x, upper_left_x, lower_left_y, upper_left_y);
+    libMesh::MeshTools::Generation::build_square(
+            mesh, nx, ny, lower_left_x, upper_left_x, lower_left_y, upper_left_y);
+}
+
+void Build1DMesh(char **argv, libMesh::Mesh &mesh) {
+
+    unsigned int nx = std::atoi(argv[1]);
+    double left_x = std::atof(argv[3]);
+    double right_x = std::atof(argv[4]);
+
+    libMesh::MeshTools::Generation::build_line(
+            mesh, nx, left_x, right_x,libMesh::EDGE2 );
 }

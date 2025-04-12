@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 
   libMesh::LibMeshInit init(argc, argv);
   libMesh::Mesh mesh(init.comm());
-  BuildMesh(argv, mesh);
+  Build2DMesh(argv, mesh);
 
   libMesh::EquationSystems equation_system(mesh);
 
